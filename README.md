@@ -1,4 +1,5 @@
-# blacksmith
+# Blacksmith
+
 PHP Command Line Interface helper library
 
 This library is intended to help developer to create easily CLI commands using php.
@@ -10,4 +11,4 @@ This is how the terminal looks when you run:
 php blacksmith help
 ```
 
-![Alt text](/resources/sc_blacksmith_help?raw=true "Blacksmith Help")
+![Alt text](/resources/sc_blacksmith_help.png?raw=true "Blacksmith Help")
