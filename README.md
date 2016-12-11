@@ -1,5 +1,8 @@
 # Blacksmith
 
+[![CircleCI](https://img.shields.io/circleci/project/github/eaperezc/blacksmith.svg?style=flat-square)]()
+
+
 PHP Command Line Interface helper library
 
 This library is intended to help developer to create easily CLI commands using php.
