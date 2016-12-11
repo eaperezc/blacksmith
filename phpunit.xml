@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<phpunit
+    colors="true"
+    bootstrap="./vendor/autoload.php">
+
+    <testsuites>
+        <testsuite name="BlacksmithTests">
+            <directory suffix=".test.php">tests</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>

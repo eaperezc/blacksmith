@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+
+// Autoload classes
+require __DIR__.'/vendor/autoload.php';
+
+
+$console = new Blacksmith\Console($argv);
+
+// Tell the console which are the commands
+// we want available to use
+$console->commands = [
+    Blacksmith\Commands\HelpCommand::class,
+    Blacksmith\Examples\SayHello::class,
+    Blacksmith\Examples\SayBye::class
+];
+
+$console->handle();
+
+exit;
