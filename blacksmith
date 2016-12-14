@@ -1,9 +1,14 @@
 #!/usr/bin/env php
 <?php
 
+// We define the root of the call
+define('BLACKSMITH_ROOT', getcwd());
+
+// Autoload depending on where we are standing
 $project_autoload_path = __DIR__.'/../../autoload.php';
 $local_autoload_path   = __DIR__.'/vendor/autoload.php';
 
+// Prepare the autoload path for composer
 $autoload_path = file_exists($project_autoload_path)
     ? $project_autoload_path
     : $local_autoload_path;
@@ -11,16 +16,14 @@ $autoload_path = file_exists($project_autoload_path)
 // Autoload classes
 require_once $autoload_path;
 
-
+// Get a console instance
 $console = new Blacksmith\Console($argv);
-
-define('BLACKSMITH_ROOT', getcwd());
-
 
 // Tell the console which are the commands
 // we want available to use
 $console->commands = [
     Blacksmith\Commands\HelpCommand::class,
+    Blacksmith\Commands\BootstrapCommand::class,
     Blacksmith\Examples\SayHello::class,
     Blacksmith\Examples\SayBye::class
 ];

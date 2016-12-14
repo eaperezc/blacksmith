@@ -60,7 +60,7 @@ class HelpCommand extends Command {
             '------------------------------------------------------------------------',
             '',
             'Welcome to the Blacksmith! Create your own cli scripts with php.',
-            'Version: 0.0.0.0.1',
+            'Version: 0.0.1',
             ''
         ]);
 
