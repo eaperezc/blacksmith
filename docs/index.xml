@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blacksmith</title>
+    <link>https://example.org/index.xml</link>
+    <description>Recent content on Blacksmith</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Released under the MIT license</copyright>
+    <lastBuildDate>Tue, 13 Dec 2016 21:19:44 -0500</lastBuildDate>
+    <atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Getting Started</title>
+      <link>https://example.org/getting-started/</link>
+      <pubDate>Tue, 13 Dec 2016 21:19:44 -0500</pubDate>
+      
+      <guid>https://example.org/getting-started/</guid>
+      <description>
+
+&lt;p&gt;Lets get started using blacksmith. The main idea here is to get you to through the installation process of the script in any project you want to add it and give you the basic usage on how you can use your commands.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;The first thing we need to do is to get Blacksmith. To do that you can go to the github repository and download it manually but if course we think the best way to include it would be using composer. So thats what we are going to do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;composer require eaperezc/blacksmith
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;bootstrap&#34;&gt;Bootstrap&lt;/h2&gt;
+
+&lt;p&gt;After composer finished downloading the library, you will have it on your vendor folder inside of the bin folder. Of course you could access it using that file but we think is easier of you have it on the root folder. If you copy and paste the blackmith file manually it would work of course but to bootstrap we created a helper command you can run:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;./vendor/bin/blacksmith bootstrap
+# The commands folder and the blacksmith script will be available to use
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;help&#34;&gt;Help&lt;/h2&gt;
+
+&lt;p&gt;Any command that is available it will automatically appear in the help section of blacksmith. To see the help you just type the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;php blacksmith
+# Or php blacksmith help also works
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;You&amp;rsquo;ll see that the way we can call any command using blacksmith is the one that we see in the help menu. Of course each command works differently and some of them wont have the need of arguments. See the example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;php blacksmith [signature] [arguments]
+
+# Example:
+php blacksmith make:cmd ExampleCommand
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I will continue to add more documentation here as soon as we have more things to show. Specially on how to create custom commands and register them in blacksmith. Have a good one!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Welcome to Blacksmith</title>
+      <link>https://example.org/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.org/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://example.org/images/blacksmith_help_sc.png&#34; alt=&#34;Blacksmith Screenshot&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Blacksmith is our attempt to create a CLI helper so anyone can easily create their own PHP cli scripts. It is based on the laravel artisan CLI script but totally independent from the framework.&lt;/p&gt;
+
+&lt;h2 id=&#34;features&#34;&gt;Features&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Automatic CLI help menu.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Commands namespacing.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Easy to use.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Available through composer.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;See the &lt;a href=&#34;https://example.org/getting-started/&#34;&gt;getting started guide&lt;/a&gt; for instructions how to get
+it up and running.&lt;/p&gt;
+
+&lt;h2 id=&#34;acknowledgements&#34;&gt;Acknowledgements&lt;/h2&gt;
+
+&lt;p&gt;Anyone helping with the project is awesome but I want to give special thanks to &lt;a href=&#34;https://github.com/grahamsutt12&#34;&gt;Graham Sutton&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
