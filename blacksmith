@@ -1,9 +1,15 @@
 #!/usr/bin/env php
 <?php
 
+$project_autoload_path = __DIR__.'/../../autoload.php';
+$local_autoload_path   = __DIR__.'/vendor/autoload.php';
+
+$autoload_path = file_exists($project_autoload_path)
+    ? $project_autoload_path
+    : $local_autoload_path;
 
 // Autoload classes
-require __DIR__.'/vendor/autoload.php';
+require_once $autoload_path;
 
 
 $console = new Blacksmith\Console($argv);
