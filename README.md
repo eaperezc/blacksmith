@@ -3,6 +3,10 @@
 [![CircleCI](https://img.shields.io/circleci/project/github/eaperezc/blacksmith.svg?style=flat-square)]()
 
 
+To see the full documentation of the library please go to:
+[Blacksmith Documentation Page](https://eaperezc.github.io/blacksmith/)
+
+
 PHP Command Line Interface helper library
 
 This library is intended to help developer to create easily CLI commands using php.
