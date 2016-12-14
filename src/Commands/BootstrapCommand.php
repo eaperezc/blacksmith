@@ -67,14 +67,16 @@ class BootstrapCommand extends Command {
      */
     public function copyBlacksmithToRoot()
     {
+        $blacksmith_bin_path = BLACKSMITH_ROOT . '/vendor/bin/blacksmith';
+
         // if we are on the vendor folder it means we are
         // been called from inside the composer libraries
-        if (strpos(BLACKSMITH_ROOT, 'vendor') === false) {
+        if (!file_exists($blacksmith_bin_path)) {
             return;
         }
 
         // we create a root copy of the script
-        if (copy(BLACKSMITH_ROOT . '/vendor/bin/blacksmith', $this->script_name?:'blacksmith')) {
+        if (copy($blacksmith_bin_path, $this->script_name?:'blacksmith')) {
             // Add permission to excecute the file
             chmod($this->script_name?:'blacksmith', 0755);
         }
