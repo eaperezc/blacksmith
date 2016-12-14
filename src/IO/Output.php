@@ -72,5 +72,13 @@ class Output {
         $this->println($output);
     }
 
-
+    /**
+     * Success message
+     * Prints a success message to the console
+     */
+    public function success($message)
+    {
+        $output = $this->decorator->decorate($message, 'green');
+        $this->println($output);
+    }
 }
