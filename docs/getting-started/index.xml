@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Getting-started-rsses on Blacksmith</title>
-    <link>https://example.org/getting-started/index.xml</link>
+    <link>https://eaperezc.github.io/blacksmith/getting-started/index.xml</link>
     <description>Recent content in Getting-started-rsses on Blacksmith</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
     <lastBuildDate>Tue, 13 Dec 2016 21:19:44 -0500</lastBuildDate>
-    <atom:link href="https://example.org/getting-started/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://eaperezc.github.io/blacksmith/getting-started/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Getting Started</title>
-      <link>https://example.org/getting-started/</link>
+      <link>https://eaperezc.github.io/blacksmith/getting-started/</link>
       <pubDate>Tue, 13 Dec 2016 21:19:44 -0500</pubDate>
       
-      <guid>https://example.org/getting-started/</guid>
+      <guid>https://eaperezc.github.io/blacksmith/getting-started/</guid>
       <description>
 
 &lt;p&gt;Lets get started using blacksmith. The main idea here is to get you to through the installation process of the script in any project you want to add it and give you the basic usage on how you can use your commands.&lt;/p&gt;

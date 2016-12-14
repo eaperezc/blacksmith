@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blacksmith</title>
-    <link>https://example.org/index.xml</link>
+    <link>https://eaperezc.github.io/blacksmith/index.xml</link>
     <description>Recent content on Blacksmith</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
     <lastBuildDate>Tue, 13 Dec 2016 21:19:44 -0500</lastBuildDate>
-    <atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://eaperezc.github.io/blacksmith/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Getting Started</title>
-      <link>https://example.org/getting-started/</link>
+      <link>https://eaperezc.github.io/blacksmith/getting-started/</link>
       <pubDate>Tue, 13 Dec 2016 21:19:44 -0500</pubDate>
       
-      <guid>https://example.org/getting-started/</guid>
+      <guid>https://eaperezc.github.io/blacksmith/getting-started/</guid>
       <description>
 
 &lt;p&gt;Lets get started using blacksmith. The main idea here is to get you to through the installation process of the script in any project you want to add it and give you the basic usage on how you can use your commands.&lt;/p&gt;
@@ -59,13 +59,13 @@ php blacksmith make:cmd ExampleCommand
     
     <item>
       <title>Welcome to Blacksmith</title>
-      <link>https://example.org/</link>
+      <link>https://eaperezc.github.io/blacksmith/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://example.org/</guid>
+      <guid>https://eaperezc.github.io/blacksmith/</guid>
       <description>
 
-&lt;p&gt;&lt;img src=&#34;https://example.org/images/blacksmith_help_sc.png&#34; alt=&#34;Blacksmith Screenshot&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://eaperezc.github.io/blacksmith/images/blacksmith_help_sc.png&#34; alt=&#34;Blacksmith Screenshot&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Blacksmith is our attempt to create a CLI helper so anyone can easily create their own PHP cli scripts. It is based on the laravel artisan CLI script but totally independent from the framework.&lt;/p&gt;
 
@@ -81,7 +81,7 @@ php blacksmith make:cmd ExampleCommand
 &lt;li&gt;&lt;p&gt;Available through composer.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;See the &lt;a href=&#34;https://example.org/getting-started/&#34;&gt;getting started guide&lt;/a&gt; for instructions how to get
+&lt;p&gt;See the &lt;a href=&#34;https://eaperezc.github.io/blacksmith/getting-started/&#34;&gt;getting started guide&lt;/a&gt; for instructions how to get
 it up and running.&lt;/p&gt;
 
 &lt;h2 id=&#34;acknowledgements&#34;&gt;Acknowledgements&lt;/h2&gt;
