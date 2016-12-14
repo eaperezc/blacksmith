@@ -14,6 +14,9 @@ require_once $autoload_path;
 
 $console = new Blacksmith\Console($argv);
 
+define('BLACKSMITH_ROOT', getcwd());
+
+
 // Tell the console which are the commands
 // we want available to use
 $console->commands = [
