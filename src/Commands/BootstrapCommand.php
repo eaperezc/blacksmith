@@ -31,13 +31,6 @@ class BootstrapCommand extends Command {
      */
     public function run()
     {
-
-        // if we are on the vendor folder it means we are
-        // been called from inside the composer libraries
-        if (strpos(BLACKSMITH_ROOT, 'vendor') !== false) {
-            return;
-        }
-
         // check arguments
         $this->checkArguments();
 
@@ -46,7 +39,7 @@ class BootstrapCommand extends Command {
         $this->initializeCommandsFolder();
 
         // Funny success message
-        $this->console->output->println('Blacksmith is ready to work in metal! Hammer down!', 'purple');
+        $this->console->output->println('Blacksmith is ready to work the metal! Hammer down!', 'purple');
     }
 
     /**
@@ -74,6 +67,12 @@ class BootstrapCommand extends Command {
      */
     public function copyBlacksmithToRoot()
     {
+        // if we are on the vendor folder it means we are
+        // been called from inside the composer libraries
+        if (strpos(BLACKSMITH_ROOT, 'vendor') === false) {
+            return;
+        }
+
         // we create a root copy of the script
         if (copy(BLACKSMITH_ROOT . '/vendor/bin/blacksmith', $this->script_name?:'blacksmith')) {
             // Add permission to excecute the file
@@ -87,9 +86,12 @@ class BootstrapCommand extends Command {
      */
     public function initializeCommandsFolder()
     {
-        if (!file_exists(BLACKSMITH_ROOT . '/commands')) {
+        // The commands folder path
+        $cmds_folder_path = BLACKSMITH_ROOT . '/commands';
+
+        if (!file_exists($cmds_folder_path)) {
             // create the blacksmith commands folder
-            mkdir(BLACKSMITH_ROOT . '/commands');
+            mkdir($cmds_folder_path);
         }
 
     }
