@@ -3,6 +3,7 @@
 namespace Blacksmith\Commands\Make;
 
 use Blacksmith\Command;
+use Exception;
 
 /**
  * The "Make Command" Command.
@@ -28,6 +29,12 @@ class CmdCommand extends Command {
     protected $command_dir_path = '';
 
     /**
+     * The argument to create the filepath and command for.
+     * @var string
+     */
+    protected $filepath;
+
+    /**
      * Main method that will run the
      * command operation.
      */
@@ -51,7 +58,7 @@ class CmdCommand extends Command {
      *
      * For example:
      *
-     *      php blacksmith make:cmd this:is:my:command
+     *      php blacksmith make:cmd this/is/my/command
      *
      * results in the following path being created:
      *
@@ -59,9 +66,9 @@ class CmdCommand extends Command {
      */
     protected function createCommand()
     {
-        $arg = $this->getArguments()[0];
+        $this->filepath = $this->getArguments()[0];
 
-        $sub_dir_names = explode(DIRECTORY_SEPARATOR, $arg);
+        $sub_dir_names = explode(DIRECTORY_SEPARATOR, $this->filepath);
         $command_name  = $sub_dir_names[count($sub_dir_names) - 1];
 
         // Remove the command name from the list of sub dirs
@@ -109,17 +116,27 @@ class CmdCommand extends Command {
         $command_file_name      = ucfirst($command_name);
         $command_file_full_path = $this->command_dir_path . DIRECTORY_SEPARATOR . $command_file_name;
 
-        // Check if the command already exists
-        if (file_exists($command_file_full_path)) {
-            $this->console->output->alert('Command already exists.');
+        try {
+
+            // Check if the command already exists
+            if (file_exists($command_file_full_path)) {
+                throw new Exception('Command already exists.');
+            }
+
+            // Create the file for the new command
+            $command_file = fopen($command_file_full_path, 'w');
+
+            fclose($command_file);
+
+        } catch (Exception $e) {
+
+            $this->console->output->alert($e->getMessage());
             return;
         }
 
-        // Create the file for the new command
-        fopen($command_file_full_path, 'w');
+        $command_signature = str_replace("/", ":", $this->filepath);
 
         $this->console->output->println('File created at: ' . $command_file_full_path);
-        $this->console->output->println();
-        $this->console->output->success('Command ' . $this->getArguments()[0] . ' created successfully.');
+        $this->console->output->success('Command ' . $command_signature . ' created successfully.');
     }
 }
