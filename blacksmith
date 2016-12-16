@@ -3,6 +3,7 @@
 
 // We define the root of the call
 define('BLACKSMITH_ROOT', getcwd());
+define('BLACKSMITH_COMMANDS_DIR', DIRECTORY_SEPARATOR . 'commands');
 
 // Autoload depending on where we are standing
 $project_autoload_path = __DIR__.'/../../autoload.php';
@@ -24,6 +25,7 @@ $console = new Blacksmith\Console($argv);
 $console->commands = [
     Blacksmith\Commands\HelpCommand::class,
     Blacksmith\Commands\BootstrapCommand::class,
+    Blacksmith\Commands\Make\CmdCommand::class,
     Blacksmith\Examples\SayHello::class,
     Blacksmith\Examples\SayBye::class
 ];
