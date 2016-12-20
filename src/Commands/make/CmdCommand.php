@@ -3,6 +3,7 @@
 namespace Blacksmith\Commands\Make;
 
 use Blacksmith\Command;
+use Blacksmith\Arguments\Make\CmdArgument;
 use Exception;
 
 /**
@@ -26,28 +27,13 @@ class CmdCommand extends Command {
      * The full path for the new command.
      * @var string
      */
-    protected $command_dir_path = '';
+    protected $command_dir_path;
 
     /**
-     * The argument to create the filepath and command for.
-     * @var string
+     * The argument for this command.
+     * @var Blacksmith\Arguments\Make\CmdArgument
      */
-    protected $filepath;
-
-    /**
-     * Main method that will run the
-     * command operation.
-     */
-    public function run()
-    {
-        // Validate argument was passed
-        if (empty($this->getArguments())) {
-            $this->console->output->alert('make:cmd requires an argument.');
-            return;
-        }
-
-        $this->createCommand();
-    }
+    protected $arg;
 
     /**
      * Create a new command.
@@ -55,6 +41,9 @@ class CmdCommand extends Command {
      * Gets the provided arguments and creates subdirectories if they do not already exist
      * for the provided command. The last element in the chain of subdirectories is treated
      * as the name of the callabale command, in which we create a template command file for.
+     *
+     * This method contains the order and registered methods regarding what to do when 
+     * creating a new command for the first time.
      *
      * For example:
      *
@@ -64,34 +53,33 @@ class CmdCommand extends Command {
      *
      *      my-project/commands/this/is/my/Command.php
      */
-    protected function createCommand()
+    public function run()
     {
-        $this->filepath = $this->getArguments()[0];
+        $args = $this->getArguments();
 
-        $sub_dir_names = explode(DIRECTORY_SEPARATOR, $this->filepath);
-        $command_name  = $sub_dir_names[count($sub_dir_names) - 1];
+        // Validate argument was passed
+        if (empty($args)) {
+            $this->console->output->alert('make:cmd requires an argument.');
+            return;
+        }
 
-        // Remove the command name from the list of sub dirs
-        unset($sub_dir_names[count($sub_dir_names) - 1]);
+        $this->arg = new CmdArgument($args[0]);
 
-        $this->createSubDirectories($sub_dir_names);
-        $this->createCommandFile($command_name);
+        $this->createSubDirectories();
+        $this->createCommandFile();
     }
 
     /**
      * Create the subdirectories for the new command.
-     *
-     * @param array $sub_dirs
-     *      The array of subdirectory names to create for the new command.
      */
-    protected function createSubDirectories(array $sub_dirs)
+    protected function createSubDirectories()
     {
         // Get the path to the /commands folder
         $blacksmith_cmd_dir = BLACKSMITH_ROOT . BLACKSMITH_COMMANDS_DIR;
 
         // Form the full path with sub dirs for the new command
         // e.g. "my-project/commands/my/new/Cmd.php"
-        $this->command_dir_path = $blacksmith_cmd_dir . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $sub_dirs);
+        $this->command_dir_path = $blacksmith_cmd_dir . DIRECTORY_SEPARATOR . $this->arg->getSubDirPath();
 
         if (!file_exists($this->command_dir_path)) {
             mkdir($this->command_dir_path, 0755, true);
@@ -101,20 +89,16 @@ class CmdCommand extends Command {
     /**
      * Create the .php file for the new command.
      *
-     * @param string $command_name
-     *      The name of the new command to create the command file for.
+     * Checks the argument to see if it has a php extension and appends it if it does not.
+     * Also capitalizes the first letter of the command name file.
+     *
+     * If the file already exists, an alert will be output to the console and the execution
+     * will be terminated. If it does not, the script will be generated and written to the 
+     * file of the new command.
      */
-    protected function createCommandFile($command_name)
+    protected function createCommandFile()
     {
-        // Check if the command already has the .php extension
-        $file_extension = strtolower(pathinfo($command_name, PATHINFO_EXTENSION));
-
-        if ($file_extension !== 'php') {
-            $command_name .= '.php';
-        }
-
-        $command_file_name      = ucfirst($command_name);
-        $command_file_full_path = $this->command_dir_path . DIRECTORY_SEPARATOR . $command_file_name;
+        $command_file_full_path = $this->command_dir_path . DIRECTORY_SEPARATOR . $this->arg->getCommandFileName();
 
         try {
 
@@ -126,6 +110,8 @@ class CmdCommand extends Command {
             // Create the file for the new command
             $command_file = fopen($command_file_full_path, 'w');
 
+            // TODO: Create Script Generator to generate the PHP scripts for the new command.
+
             fclose($command_file);
 
         } catch (Exception $e) {
@@ -134,9 +120,7 @@ class CmdCommand extends Command {
             return;
         }
 
-        $command_signature = str_replace("/", ":", $this->filepath);
-
         $this->console->output->println('File created at: ' . $command_file_full_path);
-        $this->console->output->success('Command ' . $command_signature . ' created successfully.');
+        $this->console->output->success('Command ' . $this->arg->getSignature() . ' created successfully.');
     }
 }
