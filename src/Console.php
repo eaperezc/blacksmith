@@ -47,7 +47,7 @@ class Console {
      */
     public function setRawArguments(array $args)
     {
-        $this->command = null;
+        $this->command   = null;
         $this->arguments = $args;
     }
 
@@ -69,14 +69,14 @@ class Console {
      */
     public function initCommand()
     {
-        if(sizeof($this->arguments) <= 1) {
+        if (sizeof($this->arguments) <= 1) {
             return new HelpCommand($this);
         }
 
         $signature = $this->arguments[1];
 
         foreach ($this->commands as $cmd) {
-            if($cmd::signature === $signature) {
+            if ($cmd::signature === $signature) {
                 return new $cmd($this);
             }
         }
@@ -87,9 +87,10 @@ class Console {
      */
     public function getCommand()
     {
-        if( !$this->command ){
+        if (!$this->command) {
             $this->command = $this->initCommand();
         }
+
         return $this->command;
     }
 
@@ -102,14 +103,12 @@ class Console {
      */
     public function handle()
     {
-
         if (is_null($this->getCommand())) {
             $this->output->println("Command was not found.", 'red');
             exit;
         }
 
         $this->command->run();
-
     }
 
 }
