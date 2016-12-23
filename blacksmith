@@ -25,7 +25,7 @@ $console = new Blacksmith\Console($argv);
 $console->commands = [
     Blacksmith\Commands\HelpCommand::class,
     Blacksmith\Commands\BootstrapCommand::class,
-    Blacksmith\Commands\Make\CmdCommand::class,
+    Blacksmith\Commands\MakeCmdCommand::class,
     Blacksmith\Examples\SayHello::class,
     Blacksmith\Examples\SayBye::class
 ];
