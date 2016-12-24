@@ -2,10 +2,10 @@
 
 namespace Blacksmith;
 
-use Blacksmith\Arguments\Make\CmdArgument;
+use Blacksmith\Arguments\MakeCmdArgument;
 
 
-class CmdArgumentTest extends \PHPUnit_Framework_TestCase {
+class MakeCmdArgumentTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * The test sub directory path.
@@ -27,7 +27,7 @@ class CmdArgumentTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * The CmdArgument object we are testing.
-     * @var Blacksmith\Arguments\Make\CmdArgument
+     * @var Blacksmith\Arguments\MakeCmdArgument
      */
     protected $cmd_arg;
 
@@ -39,7 +39,7 @@ class CmdArgumentTest extends \PHPUnit_Framework_TestCase {
         $this->command_name = 'mycommand';
         $this->arg          = $this->sub_dirs . DIRECTORY_SEPARATOR . $this->command_name;
 
-        $this->cmd_arg = new CmdArgument($this->arg);
+        $this->cmd_arg = new MakeCmdArgument($this->arg);
     }
 
     public function tearDown()
@@ -86,7 +86,7 @@ class CmdArgumentTest extends \PHPUnit_Framework_TestCase {
         $command_name = 'MyCommand.php';
         $arg          = $sub_dirs . DIRECTORY_SEPARATOR . $command_name;
 
-        $cmd_arg = new CmdArgument($arg);
+        $cmd_arg = new MakeCmdArgument($arg);
 
         $this->assertEquals($command_name, $cmd_arg->getCommandFileName());
     }
@@ -97,7 +97,7 @@ class CmdArgumentTest extends \PHPUnit_Framework_TestCase {
         $command_name = 'MyCommand.php';
         $arg          = $sub_dirs . DIRECTORY_SEPARATOR . $command_name;
 
-        $cmd_arg = new CmdArgument($arg);
+        $cmd_arg = new MakeCmdArgument($arg);
 
         $expected_signature = 'path:to:subdir:my_command';
 
@@ -110,7 +110,7 @@ class CmdArgumentTest extends \PHPUnit_Framework_TestCase {
         $command_name = 'myCommand.php';
         $arg          = $sub_dirs . DIRECTORY_SEPARATOR . $command_name;
 
-        $cmd_arg = new CmdArgument($arg);
+        $cmd_arg = new MakeCmdArgument($arg);
 
         $expected_signature = 'path:to:subdir:my_command';
 

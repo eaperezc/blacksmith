@@ -1,9 +1,9 @@
 <?php
 
-namespace Blacksmith\Commands\Make;
+namespace Blacksmith\Commands;
 
 use Blacksmith\Command;
-use Blacksmith\Arguments\Make\CmdArgument;
+use Blacksmith\Arguments\MakeCmdArgument;
 use Exception;
 
 /**
@@ -15,7 +15,7 @@ use Exception;
  * new command in those subdirectories.
  */
 
-class CmdCommand extends Command {
+class MakeCmdCommand extends Command {
 
     // Set the signature for the command
     const signature       = 'make:cmd';
@@ -63,7 +63,7 @@ class CmdCommand extends Command {
             return;
         }
 
-        $this->arg = new CmdArgument($args[0]);
+        $this->arg = new MakeCmdArgument($args[0]);
 
         $this->createSubDirectories();
         $this->createCommandFile();

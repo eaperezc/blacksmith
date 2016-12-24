@@ -1,6 +1,6 @@
 <?php
 
-namespace Blacksmith\Arguments\Make;
+namespace Blacksmith\Arguments;
 
 use Blacksmith\Argument;
 
@@ -11,7 +11,7 @@ use Blacksmith\Argument;
  * for the "make:cmd" command as an object to prevent app-wide
  * string manipulation.
  */
-class CmdArgument extends Argument {
+class MakeCmdArgument extends Argument {
 
     /**
      * The array of subdirectories.
