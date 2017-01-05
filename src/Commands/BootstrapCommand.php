@@ -3,6 +3,7 @@
 namespace Blacksmith\Commands;
 
 use Blacksmith\Command;
+use Exception;
 
 /**
  * Blacksmith Bootstrap Command
@@ -37,9 +38,10 @@ class BootstrapCommand extends Command {
         // initialize stuff
         $this->copyBlacksmithToRoot();
         $this->initializeCommandsFolder();
+        $this->initializeBlacksmithXmlFile();
 
         // Funny success message
-        $this->console->output->println('Blacksmith is ready to work the metal! Hammer down!', 'purple');
+        $this->console->getOutput()->println('Blacksmith is ready to work the metal! Hammer down!', 'purple');
     }
 
     /**
@@ -53,8 +55,7 @@ class BootstrapCommand extends Command {
 
             // Verify that we have a value for the argument
             if (!isset($this->getArguments()[$index + 1])) {
-                $this->console->output->alert('The --name argument needs to be followed by the value');
-                return;
+                throw new Exception('The --name argument needs to be followed by the value');
             }
 
             $this->script_name = $this->getArguments()[$index + 1];
@@ -67,7 +68,12 @@ class BootstrapCommand extends Command {
      */
     public function copyBlacksmithToRoot()
     {
-        $blacksmith_bin_path = BLACKSMITH_ROOT . '/vendor/bin/blacksmith';
+        $blacksmith_bin_path = [
+            $this->console->getConfig()->getBlacksmithRootPath(),
+            $this->console->getConfig()->getBlacksmithBinPath()
+        ];
+
+        $blacksmith_bin_path = implode(DIRECTORY_SEPARATOR, $blacksmith_bin_path);
 
         // if we are on the vendor folder it means we are
         // been called from inside the composer libraries
@@ -89,13 +95,39 @@ class BootstrapCommand extends Command {
     public function initializeCommandsFolder()
     {
         // The commands folder path
-        $cmds_folder_path = BLACKSMITH_ROOT . '/commands';
+        $cmds_folder_path = $this->console->getConfig()->getBlacksmithCommandsPath();
 
         if (!file_exists($cmds_folder_path)) {
             // create the blacksmith commands folder
             mkdir($cmds_folder_path);
         }
-
     }
 
+    /**
+     * Creates the blacksmith.xml file which is used to hold the list of available commands
+     * that points to their respective class locations.
+     */
+    public function initializeBlacksmithXmlFile()
+    {
+        $blacksmith_xml_path = $this->console->getConfig()->getBlacksmithXmlPath();
+
+        // Create the blacksmith.xml file only if it doesn't exist yet.
+        if (!file_exists($blacksmith_xml_path)) {
+
+            // Create the blacksmith.xml file
+            touch($blacksmith_xml_path);
+
+            $blacksmith_xml_file = fopen($blacksmith_xml_path, 'w');
+
+            // Copy the default blacksmith.xml settings
+            $content = file_get_contents(
+                $this->console->getConfig()->getTemplates()['blacksmith_xml_path']
+            );
+
+            // TODO: Write the configurations to the file.
+            fwrite($blacksmith_xml_file, $content);
+
+            fclose($blacksmith_xml_file);
+        }
+    }
 }
