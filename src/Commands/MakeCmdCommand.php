@@ -4,6 +4,7 @@ namespace Blacksmith\Commands;
 
 use Blacksmith\Command;
 use Blacksmith\Arguments\MakeCmdArgument;
+use Blacksmith\Console;
 use Exception;
 
 /**
@@ -59,8 +60,7 @@ class MakeCmdCommand extends Command {
 
         // Validate argument was passed
         if (empty($args)) {
-            $this->console->output->alert('make:cmd requires an argument.');
-            return;
+            throw new Exception(self::signature . ' requires an argument.');
         }
 
         $this->arg = new MakeCmdArgument($args[0]);
@@ -74,12 +74,9 @@ class MakeCmdCommand extends Command {
      */
     protected function createSubDirectories()
     {
-        // Get the path to the /commands folder
-        $blacksmith_cmd_dir = BLACKSMITH_ROOT . BLACKSMITH_COMMANDS_DIR;
-
         // Form the full path with sub dirs for the new command
         // e.g. "my-project/commands/my/new/Cmd.php"
-        $this->command_dir_path = $blacksmith_cmd_dir . DIRECTORY_SEPARATOR . $this->arg->getSubDirPath();
+        $this->command_dir_path = $this->console->getConfig()->getBlacksmithCommandsPath() . DIRECTORY_SEPARATOR . $this->arg->getSubDirPath();
 
         if (!file_exists($this->command_dir_path)) {
             mkdir($this->command_dir_path, 0755, true);
@@ -100,27 +97,19 @@ class MakeCmdCommand extends Command {
     {
         $command_file_full_path = $this->command_dir_path . DIRECTORY_SEPARATOR . $this->arg->getCommandFileName();
 
-        try {
-
-            // Check if the command already exists
-            if (file_exists($command_file_full_path)) {
-                throw new Exception('Command already exists.');
-            }
-
-            // Create the file for the new command
-            $command_file = fopen($command_file_full_path, 'w');
-
-            // TODO: Create Script Generator to generate the PHP scripts for the new command.
-
-            fclose($command_file);
-
-        } catch (Exception $e) {
-
-            $this->console->output->alert($e->getMessage());
-            return;
+        // Check if the command already exists
+        if (file_exists($command_file_full_path)) {
+            throw new Exception('Command already exists.');
         }
 
-        $this->console->output->println('File created at: ' . $command_file_full_path);
-        $this->console->output->success('Command ' . $this->arg->getSignature() . ' created successfully.');
+        // Create the file for the new command
+        $command_file = fopen($command_file_full_path, 'w');
+
+        // TODO: Create Script Generator to generate the PHP scripts for the new command.
+
+        fclose($command_file);
+
+        $this->console->getOutput()->println('File created at: ' . $command_file_full_path);
+        $this->console->getOutput()->success('Command ' . $this->arg->getSignature() . ' created successfully.');
     }
 }

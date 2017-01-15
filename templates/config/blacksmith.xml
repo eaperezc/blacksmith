@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<commands>
+    <command class="Blacksmith\Commands\HelpCommand"/>
+    <command class="Blacksmith\Commands\BootstrapCommand"/>
+    <command class="Blacksmith\Commands\MakeCmdCommand"/>
+    <command class="Blacksmith\Examples\SayHello"/>
+    <command class="Blacksmith\Examples\SayBye"/>
+</commands>

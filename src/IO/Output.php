@@ -33,7 +33,7 @@ class Output {
     {
         // If theres a color passed as a parameter
         // we paint the message in the requested color
-        if($color) {
+        if ($color) {
             $message = $this->decorator->decorate($message, $color);
         }
 

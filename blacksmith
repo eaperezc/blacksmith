@@ -1,10 +1,6 @@
 #!/usr/bin/env php
 <?php
 
-// We define the root of the call
-define('BLACKSMITH_ROOT', getcwd());
-define('BLACKSMITH_COMMANDS_DIR', DIRECTORY_SEPARATOR . 'commands');
-
 // Autoload depending on where we are standing
 $project_autoload_path = __DIR__.'/../../autoload.php';
 $local_autoload_path   = __DIR__.'/vendor/autoload.php';
@@ -17,19 +13,28 @@ $autoload_path = file_exists($project_autoload_path)
 // Autoload classes
 require_once $autoload_path;
 
-// Get a console instance
-$console = new Blacksmith\Console($argv);
-
-// Tell the console which are the commands
-// we want available to use
-$console->commands = [
-    Blacksmith\Commands\HelpCommand::class,
-    Blacksmith\Commands\BootstrapCommand::class,
-    Blacksmith\Commands\MakeCmdCommand::class,
-    Blacksmith\Examples\SayHello::class,
-    Blacksmith\Examples\SayBye::class
+// Initialize app dependencies
+$dependencies = [
+    'blacksmith_root_path'     => getcwd(),
+    'blacksmith_commands_path' => getcwd() . DIRECTORY_SEPARATOR . 'commands',
+    'blacksmith_bin_path'      => 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'blacksmith',
+    'blacksmith_xml_path'      => getcwd() . DIRECTORY_SEPARATOR . 'blacksmith.xml',
+    'templates' => [
+        'blacksmith_xml_path' => 'templates' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'blacksmith.xml'
+    ]
 ];
 
-$console->handle();
+// Get a console instance
+$config  = new Blacksmith\Config($dependencies);
+$console = new Blacksmith\Console($config, $argv);
+
+try {
+
+    $console->handle();
+
+} catch (Exception $e) {
+
+    $console->getOutput()->println($e->getMessage(), 'red');
+}
 
 exit;

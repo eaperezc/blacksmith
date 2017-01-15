@@ -41,14 +41,17 @@ abstract class Command {
         // get the raw arguments the console got
         $args = $this->console->getRawArguments();
 
-        // remove the "blacksmith" argument
-        // and remove the "command signature" argument
-        if ($args[0] === 'blacksmith' || $args[0] === $this::signature)
-            unset($args[0]);
+        if (!empty($args)) {
 
-        // remove the second parameter if it is the command signature
-        if ($args[1] === $this::signature)
-            unset($args[1]);
+            // remove the "blacksmith" argument
+            // and remove the "command signature" argument
+            if ($args[0] === 'blacksmith' || $args[0] === $this::signature)
+                unset($args[0]);
+
+            // remove the second parameter if it is the command signature
+            if ($args[1] === $this::signature)
+                unset($args[1]);
+        }
 
         return array_values($args);
     }

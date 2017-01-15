@@ -2,6 +2,7 @@
 
 namespace Blacksmith;
 
+use Blacksmith\Config;
 use Blacksmith\IO\Output;
 use Blacksmith\Commands\HelpCommand;
 
@@ -29,16 +30,52 @@ class Console {
     private $arguments = [];
 
     /**
+     * The Config 
+     */
+    public $config;
+
+    /**
      * console output helper object
      * @see Blacksmith\IO\Output
      */
     public $output = null;
 
-
-    function __construct($arguments = [])
+    /**
+     * Constructor
+     *
+     * Sets the arguments and dependencies for the Blacksmith application.
+     *
+     * @param array $arguments
+     *      The arguments provided by the end user.
+     * @param Blacksmith\Config $config
+     *      The dependencies required by the Blacksmith application.
+     */
+    function __construct(Config $config, $arguments = [])
     {
+        $this->setConfig($config);
         $this->setRawArguments($arguments);
-        $this->output = new Output;
+        $this->setOutput(new Output());
+        $this->loadCommands();
+    }
+
+    /**
+     * Loads the registered commands based on the blacksmith.xml file.
+     *
+     * If the blacksmith.xml file is not found in the root project, Blacksmith
+     * will pull the default blacksmith.xml configurations found in
+     * templates/config/blacksmith.xml.
+     */
+    protected function loadCommands()
+    {
+        $blacksmith_xml_path = !file_exists($this->config->getBlacksmithXmlPath())
+            ? $this->config->getTemplates()['blacksmith_xml_path']
+            : $this->config->getBlacksmithXmlPath();
+
+        $blacksmith_xml_file = simplexml_load_file($blacksmith_xml_path);
+
+        foreach ($blacksmith_xml_file->children() as $command) {
+            $this->commands[] = (string) $command['class'];
+        }
     }
 
     /**
@@ -111,4 +148,45 @@ class Console {
         $this->command->run();
     }
 
+    /**
+     * Sets the dependency used for printing to the console.
+     *
+     * @param Output $output
+     *      The "output" engine used to print messages to the console.
+     */
+    protected function setOutput(Output $output)
+    {
+        $this->output = $output;
+    }
+
+    /**
+     * Gets the objects used to output to console.
+     *
+     * @return Output
+     */
+    public function getOutput()
+    {
+        return $this->output;
+    }
+
+    /**
+     * Sets the configuration settings on the console.
+     *
+     * @param Blacksmith\Config $config
+     *      Contains the Blacksmith configuration details.
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
+    }
+
+    /**
+     * Gets the configuration settings.
+     *
+     * @return Blacksmith\Config
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
 }
